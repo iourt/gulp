@@ -1,22 +1,32 @@
 var gulp = require('gulp'),
 	uglify = require('gulp-uglify');
 
+// 初始化配置
 var appueConfig = {
-	projects: ['prj-test']
-	scripts: 'js/**/*js'
+	// 项目目录
+	projects: ['prj-test'],
+	// js文件
+	scripts: '/**/*js'
 };
 
-gulp.task('compress', function() {
-	gulp.src(appueConfig.projects+'*js')
-		.pipe(uglify({
-			outSourceMap: true
-		}))
-		.pipe(gulp.dest('build'))
-});
+// 循环项目run task
+appueConfig.projects.forEach(function(prj){
 
-// Rerun the task when a file changes
-gulp.task('watch', function() {
-	gulp.watch(appueConfig.projects+'*js', ['compress']);
+	var paths = prj+appueConfig.scripts;
+
+	// 压缩代码
+	gulp.task('compress', function(){
+		gulp.src(paths)
+			.pipe(uglify({
+				outSourceMap: false
+			}))
+			.pipe(gulp.dest('build/'+prj))
+	});
+
+	// 监视项目
+	gulp.task('watch', function() {
+		gulp.watch(paths, ['compress']);
+	});
 });
 
 
