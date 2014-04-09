@@ -1,5 +1,7 @@
-var gulp = require('gulp'),
-	uglify = require('gulp-uglify');
+var gulp = require('gulp');
+
+// 引入JS压缩插件
+var uglify = require('gulp-uglify'); 
 
 // 初始化配置
 var appueConfig = {
