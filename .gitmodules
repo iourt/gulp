@@ -1,0 +1,3 @@
+[submodule "prj-test"]
+	path = prj-test
+	url = git@dev.github.com:iourt/project.git
