@@ -1,7 +1,9 @@
-var gulp = require('gulp');
-
-// 引入JS压缩插件
-var uglify = require('gulp-uglify'); 
+var gulp = require('gulp'),
+	// 引入JS压缩插件
+	uglify = require('gulp-uglify'),
+	// 引入handlebars
+	handlebars = require('gulp-handlebars'),
+	defineModule = require('gulp-define-module'); 
 
 // 初始化配置
 var appueConfig = {
@@ -31,6 +33,13 @@ appueConfig.projects.forEach(function(prj){
 	});
 });
 
+// handlebars 模板
+gulp.task('templates', function(){
+  gulp.src(['templates/*.hbs'])
+    .pipe(handlebars())
+    .pipe(defineModule('node'))
+    .pipe(gulp.dest('build/templates/'));
+});
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', ['compress', 'watch']);
