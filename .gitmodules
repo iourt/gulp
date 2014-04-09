@@ -1,3 +1,6 @@
 [submodule "prj-test"]
 	path = prj-test
 	url = git@dev.github.com:iourt/project.git
+[submodule "lib"]
+	path = lib
+	url = git@dev.github.com:iourt/library.git
