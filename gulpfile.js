@@ -4,7 +4,8 @@ var gulp 		 = require('gulp'),
 	handlebars   = require('gulp-handlebars'), // 引入handlebars
 	defineModule = require('gulp-define-module'),
 	rename 		 = require("gulp-rename"), // 修改文件名 
-	zip 		 = require('gulp-zip'); // 文件压缩包
+	zip 		 = require('gulp-zip'), // 文件压缩包
+	jshint 		 = require('gulp-jshint'); // JS文件效验
 
 // 初始化配置
 var appueConfig = {
