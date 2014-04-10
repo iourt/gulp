@@ -46,4 +46,5 @@ appueConfig.projects.forEach(function(prj){
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['compress', 'templates', 'watch']);
+gulp.task('release', ['compress', 'templates', 'watch']);
+gulp.task('build', ['compress', 'templates', 'watch']);
