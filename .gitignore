@@ -1,6 +1,4 @@
 .DS_Store
 Thumbs.db
-build/
-prj-test/
-lib/
-zip/
+/build/
+/zip/
