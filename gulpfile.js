@@ -8,6 +8,8 @@ var gulp 		 = require('gulp'),
 	jshint 		 = require('gulp-jshint'), // JS文件效验
 	stylish 	 = require('jshint-stylish'), // JS效验报错
 	clean 		 = require('gulp-clean'), // 文件清理
+	connect 	 = require('gulp-connect'), // web server
+	shell 		 = require('gulp-shell'), // shell
 	map 		 = require('map-stream'); 
 
 // 初始化配置
@@ -34,10 +36,8 @@ appueConfig.projects.forEach(function(prj){
 
 	// clean files
 	gulp.task('cleanfile', function(){
-		gulp.src(['build/', 'zip/'], {
-				read: false
-			})
-			.pipe(clean());
+		gulp.src([pathALL, 'zip/'], {read: false})
+			.pipe(clean({force: true}));
 	});
 
 	// 移动html文件
@@ -73,6 +73,15 @@ appueConfig.projects.forEach(function(prj){
 				path.extname = ".js"
 			}))
 			.pipe(gulp.dest(pathPRJ));
+		gulp.src(pathHBS)
+			.pipe(handlebars())
+			.pipe(defineModule('amd'))
+			.pipe(rename(function(path){
+				// path.dirname += '';
+				path.basename += ".hbs";
+				path.extname = ".js"
+			}))
+			.pipe(gulp.dest(prj));
 	});
 
 	// JS 文件效验
@@ -109,11 +118,24 @@ appueConfig.projects.forEach(function(prj){
 
 	// 监视项目
 	gulp.task('watch', function() {
+		gulp.watch(pathALL, ['cleanfile']);
 		gulp.watch(pathHTML, ['move-html']);
 		gulp.watch(pathJS, ['compress']);
 		gulp.watch(pathCSS, ['minify-css']);
 		gulp.watch(pathHBS, ['templates']);
 	});
+});
+
+gulp.task('connect', function () {
+	connect.server({
+		root: '',
+		port: 8000,
+		livereload: true
+	});
+	gulp.src('')
+		.pipe(shell([
+			'open http://localhost:8000'
+		]));
 });
 
 // 建立生产 $ gulp build
@@ -125,3 +147,5 @@ gulp.task('check', ['lint']);
 gulp.task('clean', ['cleanfile']);
 // 打包文件 $ gulp zip
 gulp.task('zip', ['zipfile']);
+// run 服务器
+gulp.task('run', ['build', 'connect', 'watch']);
