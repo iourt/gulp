@@ -5,11 +5,12 @@ var gulp 		 = require('gulp'),
 	defineModule = require('gulp-define-module'),
 	rename 		 = require("gulp-rename"), // 修改文件名 
 	zip 		 = require('gulp-zip'), // 文件压缩包
-	jshint 		 = require('gulp-jshint'); // JS文件效验
+	jshint 		 = require('gulp-jshint'), // JS文件效验
+	stylish 	 = require('jshint-stylish'); // JS效验报错
 
 // 初始化配置
 var appueConfig = {
-	projects: ['prj-test', 'prj-a'], // 项目目录
+	projects: ['prj-test'], // 项目目录
 	html: '/**/*html', // HTML目录
 	scripts: '/**/*js', // js文件
 	css: '/**/*css', // CSS文件
@@ -61,12 +62,12 @@ appueConfig.projects.forEach(function(prj){
 			.pipe(gulp.dest(pathPRJ));
 	});
 
-	// 监视项目
-	gulp.task('watch', function() {
-		gulp.watch(pathHTML, ['move-html']);
-		gulp.watch(pathJS, ['compress']);
-		gulp.watch(pathCSS, ['minify-css']);
-		gulp.watch(pathHBS, ['templates']);
+	// JS 文件效验
+	gulp.task('lint', function() {
+		gulp.src(pathJS)
+			.pipe(jshint())
+			.pipe(jshint.reporter(stylish))
+			.pipe(jshint.reporter('fail'));
 	});
 
 	// 打包文件
@@ -75,9 +76,19 @@ appueConfig.projects.forEach(function(prj){
 	        .pipe(zip(prj+'.zip'))
 	        .pipe(gulp.dest('zip'));
 	});
+
+	// 监视项目
+	gulp.task('watch', function() {
+		gulp.watch(pathHTML, ['move-html']);
+		gulp.watch(pathJS, ['compress']);
+		gulp.watch(pathCSS, ['minify-css']);
+		gulp.watch(pathHBS, ['templates']);
+	});
 });
 
 // 建立生产 $ gulp build
-gulp.task('build', ['move-html', 'compress', 'minify-css', 'templates', 'watch']);
+gulp.task('build', ['lint', 'move-html', 'compress', 'minify-css', 'templates', 'watch']);
+// JS check
+gulp.task('check', ['lint']);
 // 打包文件 $ gulp zip
 gulp.task('zip', ['zipfile']);
