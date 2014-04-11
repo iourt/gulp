@@ -36,18 +36,21 @@ appueConfig.projects.forEach(function(prj){
 
 	// clean files
 	gulp.task('cleanfile', function(){
-		gulp.src([pathALL, 'zip/'], {read: false})
-			.pipe(clean({force: true}));
+		console.log(1);
+		gulp.src(['build/', 'zip/'], {read: false})
+			.pipe(clean());
 	});
 
 	// 移动html文件
 	gulp.task('move-html', function(){
+		console.log(2);
 		gulp.src(pathHTML)
 			.pipe(gulp.dest(pathPRJ));
 	});
 
 	// 压缩代码
 	gulp.task('compress', function(){
+		console.log(3);
 		gulp.src(pathJS)
 			.pipe(uglify({
 				outSourceMap: false
@@ -72,16 +75,17 @@ appueConfig.projects.forEach(function(prj){
 				path.basename += ".hbs";
 				path.extname = ".js"
 			}))
+			.pipe(gulp.dest(prj))
 			.pipe(gulp.dest(pathPRJ));
-		gulp.src(pathHBS)
-			.pipe(handlebars())
-			.pipe(defineModule('amd'))
-			.pipe(rename(function(path){
-				// path.dirname += '';
-				path.basename += ".hbs";
-				path.extname = ".js"
-			}))
-			.pipe(gulp.dest(prj));
+		//gulp.src(pathHBS)
+		//	.pipe(handlebars())
+		//	.pipe(defineModule('amd'))
+		//	.pipe(rename(function(path){
+		//		// path.dirname += '';
+		//		path.basename += ".hbs";
+		//		path.extname = ".js"
+		//	}))
+		//	.pipe(gulp.dest(prj));
 	});
 
 	// JS 文件效验
