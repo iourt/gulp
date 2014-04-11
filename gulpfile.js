@@ -44,7 +44,6 @@ appConfig.projects.forEach(function(prj){
 	taskProject = {
 		// html移动
 		html: function(){
-			console.log(appConfig.path+prj);
 			return gulp.src(pathHTML)
 						.pipe(gulp.dest(appConfig.path+prj));
 		},
@@ -149,6 +148,11 @@ appConfig.projects.forEach(function(prj){
 	// 		.pipe(jshint())
 	// 		.pipe(myReporter);
 	// });
+	gulp.task('zip', function(){
+		return gulp.src(pathALL)
+    				.pipe(zip(prj+'.zip'))
+    				.pipe(gulp.dest('zip'));
+	});
 });
 
 // 建立生产 $ gulp build
