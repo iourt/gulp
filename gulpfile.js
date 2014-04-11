@@ -10,6 +10,7 @@ var gulp 		 = require('gulp'),
 	clean 		 = require('gulp-clean'), // 文件清理
 	connect 	 = require('gulp-connect'), // web server
 	shell 		 = require('gulp-shell'), // shell
+	concat 		 = require('gulp-concat'), // js文件合并
 	map 		 = require('map-stream'); 
 
 // 初始化配置
@@ -55,12 +56,16 @@ appConfig.projects.forEach(function(prj){
 						}))
 						.pipe(gulp.dest(appConfig.path+prj));
 		},
+		concat: function(){
+
+		},
 		// css压缩
 		minifycss: function(){
 			return gulp.src(pathCSS)
 						.pipe(minifyCSS())
 						.pipe(gulp.dest(appConfig.path+prj));
 		},
+		// js文件合并
 		// handlebars模板生成
 		templates: function(){
 			return gulp.src(pathHBS)
