@@ -56,7 +56,9 @@ appConfig.projects.forEach(function(prj){
 						.pipe(gulp.dest(appConfig.path+prj));
 		},
 		concat: function(){
-
+			return gulp.src('./lib/*.js')
+						.pipe(concat('all.js'))
+						.pipe(gulp.dest(appConfig.path+prj));
 		},
 		// css压缩
 		minifycss: function(){
