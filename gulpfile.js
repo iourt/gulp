@@ -99,10 +99,10 @@ appConfig.projects.forEach(function(prj){
 				port: port,
 				livereload: true
 			});
-			gulp.src('')
-				.pipe(shell([
-					'open http://localhost:'+port
-				]));
+			// gulp.src('')
+			// 	.pipe(shell([
+			// 		'open http://localhost:'+port
+			// 	]));
 		},
 		// 监视
 		watch: function(){
