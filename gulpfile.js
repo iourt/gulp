@@ -177,3 +177,8 @@ gulp.task('run', ['clean'], function(){
 	taskProject.connect(1111);
 	// taskProject.watch();
 });
+
+gulp.task('check', function(){
+	appConfig.path = '';
+	taskProject.check();
+});
