@@ -16,12 +16,7 @@ var gulp 		 = require('gulp'),
 // 初始化配置
 var appConfig = {
 	path: 'build/', // build 项目地址
-	projects: ['prj-test'], // 项目目录
-	allfiles: '/**/*', // 所有文件
-	html: '/**/*html', // HTML目录
-	scripts: '/**/*js', // js文件
-	css: '/**/*css', // CSS文件
-	hbs: '/**/*hbs' // hbs 模板
+	projects: ['prj-test'] // 项目目录
 };
 
 var taskProject = {};
@@ -29,11 +24,11 @@ var taskProject = {};
 // 循环项目run task
 appConfig.projects.forEach(function(prj){
 
-	var pathALL  = appConfig.path+appConfig.allfiles, // 所有文件
-		pathHTML = prj+appConfig.html, // HTML目录
-		pathJS   = prj+appConfig.scripts, // JS目录
-		pathCSS  = prj+appConfig.css, // CSS目录
-		pathHBS  = prj+appConfig.hbs; // handlebars目录
+	var pathALL  = appConfig.path + '/**/*', // 所有文件
+		pathHTML = prj + '/**/*.html', // HTML目录
+		pathJS   = [prj + '/**/*.js', '!'+prj+'/**/*.hbs.js'] // JS目录
+		pathCSS  = prj + '/**/*.css', // CSS目录
+		pathHBS  = prj + '/**/*.hbs'; // handlebars目录
 
 	// clean files
 	gulp.task('clean', function(){
@@ -175,7 +170,7 @@ gulp.task('run', ['clean'], function(){
 	taskProject.check();
 	taskProject.templates();
 	taskProject.connect(1111);
-	// taskProject.watch();
+	taskProject.watch();
 });
 
 gulp.task('check', function(){
