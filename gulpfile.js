@@ -24,11 +24,17 @@ var taskProject = {};
 // 循环项目run task
 appConfig.projects.forEach(function(prj){
 
-	var pathALL  = appConfig.path + '/**/*', // 所有文件
-		pathHTML = prj + '/**/*.html', // HTML目录
-		pathJS   = [prj + '/**/*.js', '!'+prj+'/**/*.hbs.js'] // JS目录
-		pathCSS  = prj + '/**/*.css', // CSS目录
-		pathHBS  = prj + '/**/*.hbs'; // handlebars目录
+	var pathALL     = appConfig.path + '/**/*', // 所有文件
+		pathHTML    = prj + '/**/*.html', // HTML目录
+		pathJS      = prj + '/**/*.js', // JS目录
+		pathCheckJS = [
+			pathJS,
+			'!'+prj+'/**/*.hbs.js',
+			'!node_modules/',
+			'!.git'
+		],
+		pathCSS     = prj + '/**/*.css', // CSS目录
+		pathHBS     = prj + '/**/*.hbs'; // handlebars目录
 
 	// clean files
 	gulp.task('clean', function(){
@@ -76,7 +82,7 @@ appConfig.projects.forEach(function(prj){
 		},
 		// js效验
 		check: function(){
-			return gulp.src(pathJS)
+			return gulp.src(pathCheckJS)
 					.pipe(jshint())
 					.pipe(jshint.reporter(stylish))
 					.pipe(jshint.reporter('fail'));
