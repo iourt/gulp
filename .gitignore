@@ -2,3 +2,5 @@
 Thumbs.db
 /build/
 /zip/
+.bower_components/
+.library/

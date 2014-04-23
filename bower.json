@@ -1,0 +1,10 @@
+{
+    "name": "library",
+    "version": "1.0.0",
+    "main": "",
+    "ignore": [],
+    "dependencies": {
+        "lib": "https://github.com/iourt/library.git#master"
+    },
+    "private": true 
+}
