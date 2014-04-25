@@ -36,7 +36,7 @@ module.exports = {
 				return chalk.stripColor(str).length;
 			}
 		}).split('\n').map(function (el, i) {
-			return headers[i] ? '\n' + chalk.underline(headers[i]) + '\n' + el : el;
+			return headers[i] ? '\n' + headers[i] + '\n' + el : el;
 		}).join('\n') + '\n\n';
 
 		if (total > 0) {
