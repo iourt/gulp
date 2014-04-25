@@ -1,4 +1,6 @@
 'use strict';
+var chalk = require('chalk'),
+	table = require('text-table');
 
 module.exports = {
 	reporter: function (result, config, options) {
