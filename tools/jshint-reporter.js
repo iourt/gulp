@@ -40,10 +40,10 @@ module.exports = {
 		}).join('\n') + '\n\n';
 
 		if (total > 0) {
-			ret += chalk.red.bold((process.platform !== 'win32' ? '✖ ' : '') + total + ' problem' + (total === 1 ? '' : 's'));
+			msg += chalk.red.bold((process.platform !== 'win32' ? '✖ ' : '') + total + ' problem' + (total === 1 ? '' : 's'));
 		} else {
-			ret += chalk.green.bold((process.platform !== 'win32' ? '✔ ' : '') + 'No problems');
-			ret = '\n' + ret.trim();
+			msg += chalk.green.bold((process.platform !== 'win32' ? '✔ ' : '') + 'No problems');
+			msg = '\n' + msg.trim();
 		}
 
 		console.log(msg + '\n');
