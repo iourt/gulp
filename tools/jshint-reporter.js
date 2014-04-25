@@ -4,16 +4,16 @@ var chalk = require('chalk'),
 
 module.exports = {
 	reporter: function (result, config, options) {
-		var total = result.length;
-		var ret = '';
-		var headers = [];
-		var prevfile;
+		var total = result.length,
+			msg = '',
+			headers = [],
+			prevfile;
 
 		options = options || {};
 
-		ret += table(result.map(function (el, i) {
-			var err = el.error;
-			var line = [
+		msg += table(result.map(function (el, i) {
+			var err = el.error,
+				line = [
 				'',
 				chalk.gray('line ' + err.line),
 				chalk.gray('col ' + err.character),
@@ -46,6 +46,6 @@ module.exports = {
 			ret = '\n' + ret.trim();
 		}
 
-		console.log(ret + '\n');
+		console.log(msg + '\n');
 	}
 };
